@@ -26,16 +26,7 @@ jobs:
     - run: "flutter --version"
     - run: "flutter pub get"
     - run: "flutter build apk --debug"
-
-    - name: "List all test files"
-      run: "ls -R test_driver"
-
-    - name: run tests
-      uses: reactivecircus/android-emulator-runner@v2
+    - uses: actions/upload-artifact@v1
       with:
-        api-level: ${{ matrix.api-level }}
-        target: ${{ matrix.target }}
-        arch: x86_64
-        profile: Nexus 6
-        script: "flutter driver --dart-define=testing_mode=true --target=test_driver/run_all.dart"
-
+        name: apk
+        path: app/build/outputs/apk/debug/app-debug.apk
